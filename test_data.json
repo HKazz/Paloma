@@ -1,0 +1,14 @@
+[
+  {
+    "message": "Daily meeting at 10 AM",
+    "sensitivity": "low"
+  },
+  {
+    "message": "Feature spec for login module",
+    "sensitivity": "medium"
+  },
+  {
+    "message": "Production API key: 9a8b7c6d5e",
+    "sensitivity": "high"
+  }
+]
