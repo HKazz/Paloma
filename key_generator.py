@@ -9,7 +9,8 @@ from cryptography.hazmat.backends import default_backend
 
 # Generate a random 256-bit AES key
 def generate_aes_key() -> bytes:
-    return os.urandom(32)  # 256-bit key
+    # Return a base64-encoded 32-byte key for Fernet
+    return base64.urlsafe_b64encode(os.urandom(32))
 
 # Derive a key from a password using PBKDF2 (not used in auto mode)
 def derive_key_from_password(password: str, salt: bytes = None) -> bytes:
@@ -59,3 +60,13 @@ def generate_rsa_keys(password: str = None) -> dict:
         "private": private_bytes,
         "public": public_bytes
     }
+
+def get_or_create_aes_key() -> bytes:
+    key_path = "aes.key"
+    if os.path.exists(key_path):
+        with open(key_path, "rb") as f:
+            return f.read()
+    key = base64.urlsafe_b64encode(os.urandom(32))
+    with open(key_path, "wb") as f:
+        f.write(key)
+    return key

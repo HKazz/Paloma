@@ -15,13 +15,12 @@ def decrypt_base64(ciphertext: str) -> str:
 
 # === AES Encryption with Fernet (MEDIUM sensitivity) ===
 def encrypt_aes(message: str, key: bytes) -> str:
-    # Encrypt message using Fernet (AES)
-    cipher = Fernet(base64.urlsafe_b64encode(key[:32]))
+    # key must be a base64-encoded 32-byte string
+    cipher = Fernet(key)
     return cipher.encrypt(message.encode()).decode()
 
 def decrypt_aes(ciphertext: str, key: bytes) -> str:
-    # Decrypt message using Fernet (AES)
-    cipher = Fernet(base64.urlsafe_b64encode(key[:32]))
+    cipher = Fernet(key)
     return cipher.decrypt(ciphertext.encode()).decode()
 
 
